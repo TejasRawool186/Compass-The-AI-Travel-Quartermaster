@@ -1,16 +1,58 @@
-# React + Vite
+# Compass
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Compass is a pirate-themed travel planner with:
 
-Currently, two official plugins are available:
+- `React + Vite` frontend in `src/`
+- `Flask` backend in `backend/`
+- live integration hooks for `Travelpayouts`, `OpenWeather`, and `Google Calendar`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Frontend setup
 
-## React Compiler
+1. Copy `.env.example` to `.env`
+2. Set `VITE_API_BASE_URL`, usually `http://localhost:5000`
+3. Run:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+npm run dev
+```
 
-## Expanding the ESLint configuration
+## Backend setup
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Copy `backend/.env.example` to `backend/.env`
+2. Fill in:
+   `TRAVELPAYOUTS_TOKEN`
+   `OPENWEATHER_API_KEY`
+   `GOOGLE_CALENDAR_API_KEY`
+   `GOOGLE_CALENDAR_ID`
+3. Create and activate a Python virtual environment
+4. Install dependencies:
+
+```bash
+pip install -r backend/requirements.txt
+```
+
+5. Start the API:
+
+```bash
+python backend/app.py
+```
+
+## API routes
+
+- `GET /api/health`
+- `GET /api/presets`
+- `GET /api/ports`
+- `GET /api/weather`
+- `GET /api/calendar`
+- `GET /api/budget`
+- `PUT /api/budget`
+- `POST /api/query`
+- `POST /api/budget/reserve`
+
+## Notes
+
+- The old frontend mock engine has been removed.
+- Weather and calendar screens now read from the backend instead of hardcoded arrays.
+- Trip planning depends on valid third-party API credentials, so live search results will fail until those keys are configured.
+- The current Travelpayouts integration uses token-based data endpoints and cached hotel metadata rather than the separate approved real-time search API.

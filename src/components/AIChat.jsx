@@ -1,9 +1,8 @@
 import React from 'react';
 import { Send, Terminal, Database, MessageSquare, Ship, Compass, ArrowRight, Coins } from 'lucide-react';
-import { sampleQueries } from '../mockCoralEngine';
 import parrotImg from '../assets/parrot.png';
 
-export default function AIChat({ chatHistory, onSend, activeQueryInfo }) {
+export default function AIChat({ chatHistory, onSend, activeQueryInfo, presets = [], isSearching = false }) {
   const [inputText, setInputText] = React.useState('');
   const chatEndRef = React.useRef(null);
 
@@ -53,7 +52,7 @@ export default function AIChat({ chatHistory, onSend, activeQueryInfo }) {
               </p>
               
               <div className="grid grid-cols-1 gap-2 w-full mt-6">
-                {sampleQueries.map((item, idx) => (
+                {presets.map((item, idx) => (
                   <button
                     key={idx}
                     onClick={() => setInputText(item.text)}
@@ -123,7 +122,7 @@ export default function AIChat({ chatHistory, onSend, activeQueryInfo }) {
             type="submit" 
             className="px-6 bg-gradient-to-r from-sandy-gold to-coral-orange hover:from-coral-orange hover:to-sandy-gold text-white font-extrabold rounded-xl transition-all duration-300 transform active:scale-95 shadow-md flex items-center justify-center"
           >
-            <Send className="w-4 h-4" />
+            {isSearching ? '...' : <Send className="w-4 h-4" />}
           </button>
         </form>
       </div>

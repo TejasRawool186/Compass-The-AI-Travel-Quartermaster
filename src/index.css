@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pirata+One&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 @theme {
   --color-ocean-blue: #4CC9F0;
@@ -22,20 +22,24 @@
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-12px); }
   }
+
   @keyframes wave {
     0%, 100% { transform: translateX(0px) scaleY(1); }
     50% { transform: translateX(-15px) scaleY(1.03); }
   }
+
   @keyframes compass-spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
   @keyframes pulse-glow {
-    0%, 100% { 
+    0%, 100% {
       box-shadow: 0 0 15px rgba(244, 201, 93, 0.4);
       filter: brightness(1);
     }
-    50% { 
+
+    50% {
       box-shadow: 0 0 25px rgba(244, 201, 93, 0.8);
       filter: brightness(1.1);
     }
@@ -82,17 +86,733 @@
   border: 2px solid #8B5E3C;
 }
 
-body {
-  background-color: #E2F6FC;
-  color: #3C3028;
+:root {
+  color: #3c3028;
   font-family: 'Space Grotesk', sans-serif;
-  background-image: 
-    radial-gradient(at 0% 0%, #D4F4FD 0px, transparent 50%),
-    radial-gradient(at 100% 100%, #FFF5D6 0px, transparent 50%),
-    radial-gradient(at 50% 0%, #4CC9F0 0px, transparent 50%);
 }
 
-/* Custom Scrollbar for Pirate Captains */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.8), transparent 22%),
+    radial-gradient(circle at top right, rgba(112, 219, 246, 0.5), transparent 28%),
+    linear-gradient(180deg, #b8eef8 0%, #cff6f7 38%, #ffe8a7 76%, #fff4d4 100%);
+  color: #3C3028;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.pirate-app-shell {
+  position: relative;
+  overflow: hidden;
+}
+
+.pirate-app-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.7), transparent 16%),
+    radial-gradient(circle at 80% 18%, rgba(255, 255, 255, 0.5), transparent 18%),
+    linear-gradient(180deg, rgba(110, 215, 244, 0.15), rgba(255, 230, 165, 0.08));
+}
+
+.pirate-main-content {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.pirate-topbar,
+.pirate-mobile-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(247, 251, 255, 0.7);
+  backdrop-filter: blur(20px);
+  border-radius: 999px;
+  padding: 0.9rem 1.25rem;
+  box-shadow: 0 22px 50px rgba(90, 117, 150, 0.15);
+}
+
+.pirate-logo-coin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f6d768 0%, #ec9d3f 100%);
+  color: #4b275d;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.55);
+}
+
+.pirate-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  padding: 0.75rem 1rem;
+  color: #5f2f72;
+  transition: all 0.25s ease;
+}
+
+.pirate-nav-link:hover,
+.pirate-nav-link-active {
+  background: rgba(255, 255, 255, 0.88);
+  color: #3d1b4f;
+  box-shadow: 0 12px 28px rgba(92, 63, 121, 0.12);
+}
+
+.pirate-budget-chip,
+.pirate-status-pill {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  border-radius: 999px;
+  padding: 0.7rem 1rem;
+  background: rgba(255, 255, 255, 0.72);
+  color: #4b275d;
+}
+
+.pirate-mobile-drawer {
+  position: absolute;
+  right: 1rem;
+  top: 5rem;
+  width: min(22rem, calc(100vw - 2rem));
+  border-radius: 2rem;
+  background: linear-gradient(180deg, rgba(242, 250, 255, 0.98), rgba(255, 238, 198, 0.98));
+  padding: 1.25rem;
+  box-shadow: 0 24px 60px rgba(67, 41, 82, 0.22);
+}
+
+.pirate-kicker {
+  margin: 0 0 0.75rem;
+  color: #7b5271;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+
+.pirate-title {
+  margin: 0;
+  color: #4b185e;
+  font-family: 'Pirata One', serif;
+  font-size: clamp(3.5rem, 7vw, 6.4rem);
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  text-shadow: 0 10px 18px rgba(95, 46, 118, 0.12);
+}
+
+.pirate-hero-panel {
+  position: relative;
+  margin: 0 auto;
+  display: grid;
+  max-width: 1280px;
+  gap: 2rem;
+  overflow: hidden;
+  border-radius: 3rem;
+  padding: 2rem;
+  background:
+    linear-gradient(180deg, rgba(105, 218, 246, 0.75) 0%, rgba(171, 243, 244, 0.88) 50%, rgba(255, 225, 147, 0.94) 100%);
+  box-shadow: 0 30px 80px rgba(74, 128, 156, 0.2);
+}
+
+.pirate-hero-copy {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-top: 1rem;
+}
+
+.pirate-search-shell {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 1.6rem;
+  background: rgba(255, 255, 255, 0.72);
+  padding: 0.7rem;
+  box-shadow: 0 18px 34px rgba(91, 114, 128, 0.14);
+}
+
+.pirate-search-shell > div {
+  flex: 1 1 16rem;
+}
+
+.pirate-cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #5a255f 0%, #3d174f 100%);
+  color: white;
+  padding: 0.95rem 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(67, 31, 88, 0.24);
+}
+
+.pirate-chip {
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  color: #4b275d;
+  padding: 0.65rem 1rem;
+  text-transform: capitalize;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(86, 99, 123, 0.12);
+}
+
+.pirate-stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: flex-start;
+  text-align: left;
+  border: 0;
+  border-radius: 1.6rem;
+  background: rgba(255, 255, 255, 0.64);
+  padding: 1rem;
+  color: #4b275d;
+  box-shadow: 0 14px 26px rgba(86, 108, 130, 0.12);
+  cursor: pointer;
+}
+
+.pirate-stat-card span {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #606578;
+}
+
+.pirate-scene {
+  position: relative;
+  min-height: 29rem;
+  border-radius: 2.4rem;
+  overflow: hidden;
+}
+
+.pirate-sun-glow {
+  position: absolute;
+  right: 12%;
+  top: 18%;
+  width: 11rem;
+  height: 11rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.4);
+  filter: blur(6px);
+}
+
+.pirate-cloud {
+  position: absolute;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  filter: blur(0.5px);
+}
+
+.pirate-cloud::before,
+.pirate-cloud::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  background: inherit;
+}
+
+.pirate-cloud-one {
+  top: 12%;
+  left: 8%;
+  width: 9rem;
+  height: 3rem;
+}
+
+.pirate-cloud-one::before {
+  width: 4rem;
+  height: 4rem;
+  left: 1rem;
+  bottom: 1rem;
+}
+
+.pirate-cloud-one::after {
+  width: 4.5rem;
+  height: 4.5rem;
+  right: 0.7rem;
+  bottom: 0.8rem;
+}
+
+.pirate-cloud-two {
+  top: 8%;
+  right: 6%;
+  width: 11rem;
+  height: 3.6rem;
+}
+
+.pirate-cloud-two::before {
+  width: 4.8rem;
+  height: 4.8rem;
+  left: 1.1rem;
+  bottom: 1rem;
+}
+
+.pirate-cloud-two::after {
+  width: 4rem;
+  height: 4rem;
+  right: 1rem;
+  bottom: 1.1rem;
+}
+
+.pirate-cloud-three {
+  bottom: 36%;
+  right: 12%;
+  width: 8rem;
+  height: 2.7rem;
+  opacity: 0.65;
+}
+
+.pirate-cloud-three::before {
+  width: 3rem;
+  height: 3rem;
+  left: 1rem;
+  bottom: 0.9rem;
+}
+
+.pirate-cloud-three::after {
+  width: 3.2rem;
+  height: 3.2rem;
+  right: 0.7rem;
+  bottom: 0.7rem;
+}
+
+.pirate-water {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 35%;
+  background:
+    linear-gradient(180deg, rgba(102, 224, 234, 0.45), rgba(61, 172, 215, 0.88)),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.35) 0 2px, transparent 2px 28px);
+}
+
+.pirate-shore {
+  position: absolute;
+  left: 11%;
+  right: 6%;
+  bottom: 10%;
+  height: 20%;
+  border-radius: 52% 48% 42% 58% / 46% 38% 62% 54%;
+  background: linear-gradient(180deg, #ffeaa9 0%, #ffcf73 100%);
+  box-shadow: inset 0 10px 0 rgba(255, 255, 255, 0.3);
+}
+
+.pirate-rock {
+  position: absolute;
+  bottom: 24%;
+  background: linear-gradient(180deg, #feb98b 0%, #b77cc0 88%);
+  clip-path: polygon(18% 100%, 0 58%, 16% 42%, 32% 10%, 58% 0, 70% 31%, 100% 46%, 90% 100%);
+}
+
+.pirate-rock-back {
+  left: 42%;
+  width: 15rem;
+  height: 14rem;
+}
+
+.pirate-rock-front {
+  left: 57%;
+  width: 11rem;
+  height: 11rem;
+}
+
+.pirate-palm {
+  position: absolute;
+  bottom: 28%;
+}
+
+.pirate-palm .trunk {
+  position: absolute;
+  bottom: 0;
+  width: 0.5rem;
+  height: 9rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #cf8264 0%, #9f5e46 100%);
+}
+
+.pirate-palm .leaf {
+  position: absolute;
+  width: 4.7rem;
+  height: 1.5rem;
+  border-radius: 100% 0;
+  background: linear-gradient(90deg, #d6d352 0%, #76963a 100%);
+  transform-origin: left center;
+}
+
+.pirate-palm-left {
+  left: 50%;
+}
+
+.pirate-palm-left .trunk {
+  transform: rotate(-8deg);
+}
+
+.pirate-palm-right {
+  right: 10%;
+}
+
+.pirate-palm-right .trunk {
+  transform: rotate(18deg);
+}
+
+.leaf-a {
+  left: -3.8rem;
+  top: -0.5rem;
+  transform: rotate(-30deg);
+}
+
+.leaf-b {
+  left: -1.2rem;
+  top: -1.6rem;
+  transform: rotate(4deg);
+}
+
+.leaf-c {
+  left: 1.8rem;
+  top: -0.4rem;
+  transform: rotate(28deg);
+}
+
+.pirate-boat {
+  position: absolute;
+  left: 8%;
+  bottom: 20%;
+  width: 13rem;
+  height: 13rem;
+}
+
+.pirate-boat-hull {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 7rem;
+  border-radius: 26% 18% 16% 44%;
+  background: linear-gradient(180deg, #a86a83 0%, #7d476f 100%);
+  transform: skewX(8deg);
+}
+
+.pirate-mast {
+  position: absolute;
+  left: 47%;
+  bottom: 4.8rem;
+  width: 0.35rem;
+  height: 6.7rem;
+  background: #874d55;
+}
+
+.pirate-sail {
+  position: absolute;
+  background: #5f305f;
+}
+
+.pirate-sail-main {
+  left: 2.2rem;
+  bottom: 5.5rem;
+  width: 6.8rem;
+  height: 4.6rem;
+  clip-path: polygon(0 14%, 100% 0, 82% 100%, 12% 100%);
+}
+
+.pirate-sail-top {
+  left: 4.6rem;
+  bottom: 10rem;
+  width: 3.4rem;
+  height: 2.3rem;
+  clip-path: polygon(0 20%, 100% 0, 78% 100%, 12% 100%);
+}
+
+.pirate-flag {
+  position: absolute;
+  right: 2.6rem;
+  bottom: 10.2rem;
+  width: 2.8rem;
+  height: 1.6rem;
+  background: #271525;
+  clip-path: polygon(0 0, 100% 18%, 76% 52%, 100% 100%, 0 100%);
+}
+
+.pirate-chest {
+  position: absolute;
+  right: 19%;
+  bottom: 7%;
+  width: 8.2rem;
+  height: 6rem;
+}
+
+.pirate-chest .lid {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 2.4rem;
+  border-radius: 1.5rem 1.5rem 0.4rem 0.4rem;
+  background: linear-gradient(180deg, #f39c40 0%, #be5522 100%);
+}
+
+.pirate-chest .box {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 4rem;
+  border-radius: 0.6rem;
+  background: linear-gradient(180deg, #ee8d37 0%, #b2411f 100%);
+}
+
+.pirate-chest .coins {
+  position: absolute;
+  left: -0.7rem;
+  bottom: -0.3rem;
+  width: 9.5rem;
+  height: 1.2rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, #ffd95f 0 22%, transparent 23%) 0 0 / 18px 18px;
+}
+
+.pirate-bottle {
+  position: absolute;
+  right: 10%;
+  bottom: 10%;
+  width: 1.2rem;
+  height: 4rem;
+  border-radius: 0.5rem 0.5rem 0.2rem 0.2rem;
+  background: linear-gradient(180deg, #ffffff 0%, #c9f5ef 75%);
+  border: 2px solid rgba(176, 110, 77, 0.5);
+}
+
+.pirate-telescope {
+  position: absolute;
+  right: 29%;
+  bottom: 10%;
+  color: #9b4e0c;
+  transform: rotate(-16deg);
+}
+
+.pirate-banner-card {
+  display: grid;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+  border: 0;
+  border-radius: 2rem;
+  padding: 1.6rem;
+  text-align: left;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 24px 50px rgba(86, 108, 130, 0.18);
+}
+
+.pirate-banner-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-width: 30rem;
+}
+
+.pirate-banner-copy p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.pirate-banner-title {
+  font-family: 'Pirata One', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+}
+
+.pirate-banner-art {
+  position: relative;
+  min-height: 10rem;
+}
+
+.pirate-banner-ship {
+  position: absolute;
+  right: 10%;
+  bottom: 0;
+  width: 8rem;
+  height: 6rem;
+  border-radius: 28% 18% 14% 40%;
+  background: linear-gradient(180deg, rgba(42, 24, 32, 0.95), rgba(84, 41, 24, 0.8));
+}
+
+.pirate-banner-ship::before {
+  content: "";
+  position: absolute;
+  left: 48%;
+  bottom: 4rem;
+  width: 0.25rem;
+  height: 4rem;
+  background: currentColor;
+}
+
+.pirate-banner-ship::after {
+  content: "";
+  position: absolute;
+  left: 2.2rem;
+  bottom: 5rem;
+  width: 3.7rem;
+  height: 2.8rem;
+  background: rgba(22, 14, 19, 0.95);
+  clip-path: polygon(0 10%, 100% 0, 80% 100%, 8% 100%);
+}
+
+.pirate-banner-skull {
+  position: absolute;
+  right: 0;
+  top: 0.5rem;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 42% 42% 48% 48%;
+  background: rgba(255, 239, 186, 0.88);
+}
+
+.pirate-banner-skull::before,
+.pirate-banner-skull::after {
+  content: "";
+  position: absolute;
+  top: 2.3rem;
+  width: 1.2rem;
+  height: 1.4rem;
+  border-radius: 999px;
+  background: rgba(24, 11, 22, 0.85);
+}
+
+.pirate-banner-skull::before {
+  left: 2rem;
+}
+
+.pirate-banner-skull::after {
+  right: 2rem;
+}
+
+.pirate-card-cyan {
+  background: linear-gradient(135deg, #26c6df 0%, #77e6f3 58%, #b6f2f8 100%);
+}
+
+.pirate-card-red {
+  background: linear-gradient(135deg, #e11f26 0%, #cf1016 52%, #f34334 100%);
+}
+
+.pirate-card-gold {
+  background: linear-gradient(135deg, #f1a53d 0%, #f8c35d 55%, #fedc8b 100%);
+}
+
+@media (min-width: 1024px) {
+  .pirate-hero-panel,
+  .pirate-banner-card {
+    grid-template-columns: 1.05fr 0.95fr;
+  }
+}
+
+@media (max-width: 1023px) {
+  .pirate-topbar {
+    border-radius: 2rem;
+  }
+
+  .pirate-hero-panel {
+    padding: 1.5rem;
+    border-radius: 2.4rem;
+  }
+
+  .pirate-scene {
+    min-height: 24rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .pirate-title {
+    font-size: 4rem;
+  }
+
+  .pirate-search-shell {
+    border-radius: 1.4rem;
+  }
+
+  .pirate-cta-button {
+    width: 100%;
+  }
+
+  .pirate-scene {
+    min-height: 20rem;
+  }
+
+  .pirate-boat {
+    left: 0;
+    transform: scale(0.78);
+    transform-origin: bottom left;
+  }
+
+  .pirate-rock-back {
+    left: 38%;
+    width: 11rem;
+    height: 10rem;
+  }
+
+  .pirate-rock-front {
+    left: 58%;
+    width: 8rem;
+    height: 8rem;
+  }
+
+  .pirate-palm-left {
+    left: 42%;
+  }
+
+  .pirate-palm-right {
+    right: 2%;
+    transform: scale(0.82);
+    transform-origin: bottom right;
+  }
+
+  .pirate-chest {
+    right: 13%;
+    transform: scale(0.82);
+    transform-origin: bottom right;
+  }
+
+  .pirate-telescope,
+  .pirate-bottle {
+    display: none;
+  }
+}
+
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
