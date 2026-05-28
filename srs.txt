@@ -1,0 +1,233 @@
+Compass — Final Hackathon SRS
+“The AI Travel Quartermaster”
+1. Project Overview
+
+Compass is a pirate-themed AI travel planning agent built for the Coral Personal Agent Track. It helps users discover and plan trips using natural language by intelligently combining flights, hotels, weather forecasts, calendar schedules, and travel budgets through Coral’s cross-source SQL engine.
+
+Instead of switching between multiple travel websites, weather apps, and calendars, users can simply ask:
+
+“Find me a sunny beach getaway next weekend under $400.”
+
+Compass uses Coral to join live travel-related data sources in a single SQL query and generates personalized travel recommendations with AI-powered explanations.
+
+The application uses:
+
+Flask backend
+React + Tailwind frontend
+Coral query engine
+MCP integration
+Custom Coral source specs
+AI natural language interface
+
+The project runs 100% locally and demonstrates Coral’s most powerful capabilities:
+
+Cross-source SQL joins
+Schema learning
+MCP tools
+Query caching
+Custom source connectors
+Local-first execution
+2. Problem Statement
+
+Travel planning is fragmented and time-consuming.
+
+Users typically:
+
+search flights separately,
+compare hotels manually,
+check weather independently,
+verify calendar availability,
+calculate budgets themselves.
+
+Compass solves this by combining all travel intelligence into one AI-driven experience powered by Coral SQL.
+
+3. Core Objectives
+Primary Objectives
+Build a personal AI travel planning assistant
+Demonstrate Coral cross-source SQL joins
+Build custom Coral source specs
+Use MCP integration
+Create a visually memorable pirate-themed dashboard
+Secondary Objectives
+Budget-aware travel planning
+Calendar conflict detection
+AI-generated travel summaries
+Interactive travel recommendations
+4. Core Features
+4.1 Natural Language Travel Planning
+
+Users can ask:
+
+“Plan a weekend trip under $300”
+“Find sunny destinations”
+“Show trips without calendar conflicts”
+“Suggest affordable beach vacations”
+
+The AI converts requests into Coral SQL queries automatically.
+
+4.2 Cross-Source Coral SQL Intelligence
+
+Compass joins:
+
+Flights
+Hotels
+Weather
+Calendar
+Budget
+
+using one SQL query.
+
+Example Hero Query
+SELECT 
+    f.destination_city,
+    h.hotel_name,
+    w.forecast,
+    b.remaining_budget
+FROM flights.search f
+JOIN hotels.search h
+ON h.city = f.destination_city
+JOIN weather.forecast w
+ON w.city = f.destination_city
+LEFT JOIN budget.allowance b
+ON b.category = 'travel'
+WHERE w.forecast = 'Clear';
+4.3 AI Travel Recommendations
+
+Compass provides:
+
+destination summaries,
+budget analysis,
+weather insights,
+travel recommendations,
+pirate-themed AI verdicts.
+
+Example:
+
+“🏴‍☠️ Clear sailing, Captain! Miami fits yer budget with sunny skies ahead.”
+
+4.4 Calendar Conflict Detection
+
+The system checks:
+
+Google Calendar events
+planned travel dates
+
+and warns users about scheduling conflicts.
+
+4.5 Budget Intelligence
+
+Compass compares:
+
+flight costs
+hotel expenses
+trip duration
+
+against the user’s travel budget.
+
+4.6 Pirate-Themed Dashboard
+
+UI Sections:
+
+🗺 Treasure Map
+⚓ Captain’s Table
+☀ Clear Sailing
+🌧 Storm Warning
+💰 Treasure Budget
+📜 Captain’s Log
+4.7 MCP Integration
+
+Compass exposes Coral through MCP tools.
+
+Example MCP tools:
+
+plan_trip
+check_weather
+compare_destinations
+verify_budget
+4.8 Coral Schema Learning & Caching
+
+The project demonstrates:
+
+automatic schema discovery,
+fast cached queries,
+dynamic source learning.
+5. Functional Requirements
+ID	Requirement
+FR-01	Execute Coral cross-source travel queries
+FR-02	Support natural language travel planning
+FR-03	Detect calendar conflicts
+FR-04	Analyze travel budgets
+FR-05	Generate AI travel summaries
+FR-06	Build custom flights source spec
+FR-07	Build custom hotels source spec
+FR-08	Build custom weather source spec
+FR-09	Support MCP tools
+FR-10	Pirate-themed responsive dashboard
+FR-11	Demonstrate Coral caching
+FR-12	Demonstrate Coral schema learning
+6. Non-Functional Requirements
+ID	Requirement
+NFR-01	Fully responsive UI
+NFR-02	Query response under 2 seconds
+NFR-03	100% local execution
+NFR-04	Mobile-friendly design
+NFR-05	Extensible source architecture
+NFR-06	Consistent pirate-themed UX
+7. Tech Stack
+Frontend
+React
+Tailwind CSS
+Framer Motion
+shadcn/ui
+Backend
+Flask
+AI
+OpenAI API
+Core Engine
+Coral
+APIs
+Amadeus Flights API
+Hotel API
+OpenWeather API
+Google Calendar API
+8. System Architecture
+User
+ ↓
+Compass Dashboard
+ ↓
+AI Agent
+ ↓
+Coral SQL Engine
+ ↓
+Flights + Hotels + Weather + Calendar + Budget
+9. Coral Technologies Used
+Coral Feature	Usage
+Cross-source JOINs	Flights + Hotels + Weather
+Schema Learning	Dynamic source schemas
+Query Caching	Faster repeated searches
+MCP Integration	AI travel tools
+Local Execution	100% local queries
+Custom Sources	Flights, Hotels, Weather
+SQL Interface	Natural language → SQL
+10. User Flow
+User opens Compass dashboard
+User asks travel question
+AI converts request into Coral SQL
+Coral joins multiple travel sources
+AI summarizes results
+Dashboard displays travel recommendations
+11. Judging Alignment
+Criterion	Coverage
+Potential Impact	Simplifies travel planning
+Creativity	Pirate-themed AI quartermaster
+Technical Depth	Coral + MCP + AI
+Best Use of Coral	Cross-source travel joins
+UX & Aesthetics	Cinematic treasure-map UI
+Learning & Growth	Custom source specs
+12. Future Scope
+Voice travel assistant
+Live booking integrations
+Currency conversion
+AI itinerary generation
+Group trip planning
+AI expense prediction
