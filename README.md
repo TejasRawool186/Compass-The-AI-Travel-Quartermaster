@@ -96,6 +96,25 @@ All coordinate routing, schema mapping, and query logic run 100% locally. By avo
 
 ---
 
+## How Coral Transformed Our Architecture: A Paradigm Shift
+
+Using Coral completely changed how we structured the backend of Compass. 
+
+### Before Coral (Traditional Multi-API Orchestration)
+Normally, combining flights, hotels, weather, calendar, and budget logic requires massive amounts of fragile glue code:
+*   Writing individual fetch methods and async handling for every single API endpoint.
+*   Constructing custom array filters and in-memory merges in Python or JavaScript (e.g., trying to map and match hotel results with flight arrival codes manually).
+*   Manually implementing caching mechanisms and rate-limit buffers for each independent service.
+*   Handling schema modifications or API structure updates by refactoring large parts of the application's response parsing code.
+
+### After Coral (Federated SQL Optimization)
+By integrating Coral, our code complexity dropped dramatically:
+*   **Unified Query Model**: We offload all asynchronous orchestrations, structural mapping, and relationships to the Coral query layer. The backend simply requests a single SQL JOIN command.
+*   **Schema Stability**: External schema additions or formatting modifications are learned automatically by Coral, meaning no manual database migrations are required when external systems update.
+*   **Sub-Second Optimization**: By having Coral cache recurring lookups, we achieved sub-second local retrieval times, safeguarding API rate thresholds automatically.
+
+---
+
 ## Hero Federated SQL Query
 
 The following SQL statement illustrates how Compass joins multiple external data schemas to retrieve a comprehensive travel recommendation:
