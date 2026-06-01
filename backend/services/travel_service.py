@@ -101,7 +101,10 @@ class TravelService:
     def _calendar_conflict(self, days_out: int = 14) -> dict | None:
         if not self.calendar_provider.configured:
             return None
-        events = self.calendar_provider.get_events(days=30)
+        try:
+            events = self.calendar_provider.get_events(days=30)
+        except Exception:
+            return None
         target_day = date.today() + timedelta(days=days_out)
         for event in events:
             event_date = event["date"][:10]
@@ -118,7 +121,16 @@ class TravelService:
         snapshots = []
         for destination in DESTINATIONS:
             if self.weather_provider.configured:
-                weather = self.weather_provider.get_weather(destination["latitude"], destination["longitude"])
+                try:
+                    weather = self.weather_provider.get_weather(destination["latitude"], destination["longitude"])
+                except Exception:
+                    weather = {
+                        "forecast": "Unavailable",
+                        "temp": "N/A",
+                        "windSpeed": "N/A",
+                        "humidity": "N/A",
+                        "description": "OpenWeather request failed.",
+                    }
             else:
                 weather = {
                     "forecast": "Unavailable",
@@ -139,7 +151,10 @@ class TravelService:
     def get_calendar_snapshot(self) -> list[dict]:
         if not self.calendar_provider.configured:
             return []
-        return self.calendar_provider.get_events(days=30)
+        try:
+            return self.calendar_provider.get_events(days=30)
+        except Exception:
+            return []
 
     def plan_trip(self, query_text: str, budget_limit: float | None = None) -> dict:
         destination = self._extract_destination(query_text)
@@ -209,6 +224,8 @@ ORDER BY flights.offer_price ASC;"""
                     "duration": "2 Nights",
                     "totalCost": total_cost,
                     "remainingBudget": remaining_budget,
+                    "flightSource": flight.get("source", "unknown"),
+                    "hotelSource": hotel.get("source", "unknown"),
                 }
             ],
             "verdict": verdict,
@@ -219,8 +236,8 @@ ORDER BY flights.offer_price ASC;"""
             "timestamp": datetime.now().strftime("%H:%M:%S"),
             "budget": active_budget,
             "providerTrace": {
-                "flights": "travelpayouts",
-                "hotels": "travelpayouts",
+                "flights": flight.get("source", "travelpayouts"),
+                "hotels": hotel.get("source", "travelpayouts"),
                 "weather": "openweather",
                 "calendar": "google-calendar" if self.calendar_provider.configured else "not-configured",
             },

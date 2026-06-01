@@ -18,7 +18,7 @@ class Settings:
     travelpayouts_api_base_url: str = os.getenv("TRAVELPAYOUTS_API_BASE_URL", "https://api.travelpayouts.com")
     travelpayouts_hotel_lookup_base_url: str = os.getenv(
         "TRAVELPAYOUTS_HOTEL_LOOKUP_BASE_URL",
-        "https://engine.hotellook.com/api/v2",
+        "http://engine.hotellook.com/api/v2",
     )
     travelpayouts_hotel_data_base_url: str = os.getenv(
         "TRAVELPAYOUTS_HOTEL_DATA_BASE_URL",

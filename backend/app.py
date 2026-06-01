@@ -3,6 +3,8 @@ from __future__ import annotations
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
+import os
+
 from config import settings
 from services.budget_store import BudgetStore
 from services.providers.calendar import CalendarProvider
@@ -114,4 +116,5 @@ def reserve():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=settings.port, debug=True)
+    debug_mode = os.getenv("FLASK_ENV", "").lower() == "development"
+    app.run(host="0.0.0.0", port=settings.port, debug=debug_mode, use_reloader=False)

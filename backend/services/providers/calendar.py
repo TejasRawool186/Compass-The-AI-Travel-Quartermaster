@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
+from urllib.parse import parse_qs, unquote, urlparse
 
 import requests
 
@@ -8,7 +9,7 @@ import requests
 class CalendarProvider:
     def __init__(self, api_key: str, calendar_id: str, base_url: str):
         self.api_key = api_key
-        self.calendar_id = calendar_id
+        self.calendar_id = self._normalize_calendar_id(calendar_id)
         self.base_url = base_url.rstrip("/")
 
     @property
@@ -46,3 +47,14 @@ class CalendarProvider:
                 }
             )
         return events
+
+    def _normalize_calendar_id(self, raw_value: str) -> str:
+        if not raw_value:
+            return raw_value
+        if "calendar.google.com" not in raw_value:
+            return raw_value
+        parsed = urlparse(raw_value)
+        src_values = parse_qs(parsed.query).get("src", [])
+        if src_values:
+            return unquote(src_values[0])
+        return raw_value

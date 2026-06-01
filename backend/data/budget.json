@@ -1,5 +1,76 @@
 {
   "totalLimit": 500,
-  "spent": 0,
-  "reservations": []
+  "spent": 910,
+  "reservations": [
+    {
+      "destination": "Nassau",
+      "duration": "2 Nights",
+      "flight": {
+        "airline": "Caribbean Connector",
+        "date": "2026-06-13",
+        "destination": "NAS",
+        "duration": "1h 10m",
+        "id": "fallback-MIA-NAS-2026-06-13",
+        "origin": "MIA",
+        "price": 165,
+        "source": "fallback-catalog"
+      },
+      "flightSource": "fallback-catalog",
+      "hotel": {
+        "amenities": "Wi-Fi, breakfast, beach access, pool",
+        "city": "Nassau",
+        "id": "fallback-nassau",
+        "name": "Harbor Breeze Nassau Resort",
+        "pricePerNight": 145,
+        "rating": 4.3,
+        "source": "fallback-catalog"
+      },
+      "hotelSource": "fallback-catalog",
+      "remainingBudget": 45,
+      "totalCost": 455,
+      "weather": {
+        "description": "broken clouds",
+        "forecast": "Clouds",
+        "humidity": "83%",
+        "temp": "27\u00b0C",
+        "windSpeed": "3 m/s"
+      },
+      "reservedAt": "2026-05-30T12:30:46.405Z"
+    },
+    {
+      "destination": "Nassau",
+      "duration": "2 Nights",
+      "flight": {
+        "airline": "Caribbean Connector",
+        "date": "2026-06-13",
+        "destination": "NAS",
+        "duration": "1h 10m",
+        "id": "fallback-MIA-NAS-2026-06-13",
+        "origin": "MIA",
+        "price": 165,
+        "source": "fallback-catalog"
+      },
+      "flightSource": "fallback-catalog",
+      "hotel": {
+        "amenities": "Wi-Fi, breakfast, beach access, pool",
+        "city": "Nassau",
+        "id": "fallback-nassau",
+        "name": "Harbor Breeze Nassau Resort",
+        "pricePerNight": 145,
+        "rating": 4.3,
+        "source": "fallback-catalog"
+      },
+      "hotelSource": "fallback-catalog",
+      "remainingBudget": 45,
+      "totalCost": 455,
+      "weather": {
+        "description": "broken clouds",
+        "forecast": "Clouds",
+        "humidity": "83%",
+        "temp": "27\u00b0C",
+        "windSpeed": "3 m/s"
+      },
+      "reservedAt": "2026-05-30T12:30:42.279Z"
+    }
+  ]
 }
